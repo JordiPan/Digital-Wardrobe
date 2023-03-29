@@ -4,6 +4,10 @@ public class Kledingkast {
     //er komt zeker nog constructor met voorgemaakte categorieen als this ding
     private ArrayList<Categorie> categorieen = new ArrayList<>();
 
+
+    public Kledingkast(ArrayList<Categorie> categorieen) {
+        this.categorieen = categorieen;
+    }
     public ArrayList<Categorie> getCategorieen() {
         return categorieen;
     }
