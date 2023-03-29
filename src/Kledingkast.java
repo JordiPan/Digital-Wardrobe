@@ -14,9 +14,9 @@ public class Kledingkast {
 
     //ja uhh volgens mij moet string
     public void verwijderCategorie(String gekregenCategorie) {
-        for (int i = 0; i < categorieen.size(); i++) {
-            if (categorieen.get(i).getNaam().equals(gekregenCategorie)) {
-                categorieen.remove(i);
+        for (Categorie categorie: categorieen) {
+            if (categorie.getNaam().equals(gekregenCategorie)) {
+                categorieen.remove(categorie);
                 return;
             }
         }
@@ -30,5 +30,9 @@ public class Kledingkast {
     // is dit wel handig? kan het liever niet in een methode komen? schizo behaviour
     public Categorie maakCategorie(String naam) {
         return new Categorie(naam);
+    }
+
+    public boolean checkOfCategorieBestaat(String categorieNaam) {
+        return false;
     }
 }

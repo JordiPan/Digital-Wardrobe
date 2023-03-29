@@ -1,9 +1,11 @@
+import java.util.Date;
+
 public class Oorbel extends Kledingstuk{
     private String vorm;
     private String materiaal;
-    private int karaat;
+    private double karaat;
 
-    Oorbel(String naam, String beschrijving, double prijs, String datum, String vorm, String materiaal, int karaat) {
+    Oorbel(String naam, String beschrijving, double prijs, Date datum, String vorm, String materiaal, double karaat) {
         super(naam, beschrijving, prijs, datum);
         this.vorm = vorm;
         this.materiaal = materiaal;
@@ -19,12 +21,12 @@ public class Oorbel extends Kledingstuk{
         return materiaal;
     }
 
-    public int getKaraat() {
+    public double getKaraat() {
         return karaat;
     }
 
     @Override
     public String getDetails() {
-        return super.getBeschrijving() + " Daarnaast zijn de oorbellen van " + materiaal + " gemaakt en zijn " + karaat + " karaat";
+        return super.getDetails() + " Daarnaast zijn de oorbellen van " + materiaal + " gemaakt en zijn " + ((karaat == 0) ? "oorbellen zonder karaat" : karaat + " karaat");
     }
 }

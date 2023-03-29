@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Categorie {
     private String naam;
@@ -21,14 +22,24 @@ public class Categorie {
     }
 
     //type Date is vervelend om te checken dus voor nu geen type date, maar String
-    public Kledingstuk maakKledingstukAan(String naam, String beschrijving, double prijs, String date, int maat) {
-        return new Kledingstuk(naam, beschrijving, prijs, date, maat);
+    public Kledingstuk maakKledingstukAan(String naam, String beschrijving, double prijs, Date datum) {
+        return new Kledingstuk(naam, beschrijving, prijs, datum);
     }
     //gaat het een error geven als ik maat niet meegeef voor oorbel??? we zien wel
-    public Oorbel maakOorbelAan(String naam, String beschrijving, double prijs, String date, String vorm, String materiaal, int karaat) {
-        return new Oorbel(naam, beschrijving, prijs, date, vorm, materiaal, karaat);
+    public Oorbel maakOorbelAan(String naam, String beschrijving, double prijs, Date datum, String vorm, String materiaal, double karaat) {
+        return new Oorbel(naam, beschrijving, prijs, datum, vorm, materiaal, karaat);
     }
-    public Bril maakBrilAan(String naam, String beschrijving, double prijs, String date, boolean isGetint, int sterkte, String maker) {
-        return new Bril(naam, beschrijving, prijs, date, isGetint, sterkte, maker);
+    public Bril maakBrilAan(String naam, String beschrijving, double prijs, Date datum, boolean isGetint, double sterkte, String maker) {
+        return new Bril(naam, beschrijving, prijs, datum, isGetint, sterkte, maker);
+    }
+    //ik weet niet of dit gaat werken door object mee te geven aan arraylist LET EROP
+    public boolean verwijderKledingstuk(String kledingstukNaam) {
+        for (Kledingstuk kledingstuk: kleding) {
+            if (kledingstuk.getNaam().equals(kledingstukNaam)) {
+                kleding.remove(kledingstuk);
+                return true;
+            }
+        }
+        return false;
     }
 }
