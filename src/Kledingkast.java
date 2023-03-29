@@ -13,16 +13,18 @@ public class Kledingkast {
     }
 
     //ja uhh volgens mij moet string
-    public void verwijderCategorie(String gekregenCategorie) {
+    public boolean verwijderCategorie(String gekregenCategorie) {
         for (Categorie categorie: categorieen) {
             if (categorie.getNaam().equals(gekregenCategorie)) {
                 categorieen.remove(categorie);
-                return;
+                return true;
             }
         }
+        return false;
     }
 
-    public void voegToe(Categorie categorie) {
+    public void voegToe(String categorieNaam) {
+        Categorie categorie = new Categorie(categorieNaam);
         categorieen.add(categorie);
     }
 
