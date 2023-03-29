@@ -25,8 +25,21 @@ public class Processor {
     }
 
     public void start() {
-        boolean stoppen = false;
         //TODO wachtwoord check komt wel later tho
+        boolean ingelogd = false;
+        while(!ingelogd) {
+            System.out.println("voer wachtwoord in...");
+            String gekregenWachtwoord = scanner.nextLine();
+
+            if (gebruiker.checkWachtwoord(gekregenWachtwoord)) {
+                ingelogd = true;
+            }
+            else {
+                System.out.println("Verkeerd... probeer opnieuw");
+            }
+        }
+
+        boolean stoppen = false;
         System.out.println("Welkom: " + gebruiker.getNaam());
         while (!stoppen) {
             System.out.println("Wat wilt u doen? " +
