@@ -31,7 +31,8 @@ public class Kledingkast {
 //        return new Categorie(naam);
 //    }
 
-    public boolean checkOfCategorieBestaat(String categorieNaam) {
-        return false;
-    }
+    // TODO dit kan worden gebruikt om tegen duplicate code tegen te gaan, maar ik heb geen tijd meer voor nu
+//    public boolean checkOfCategorieBestaat(String categorieNaam) {
+//        return false;
+//    }
 }

@@ -25,7 +25,7 @@ public class Processor {
     }
 
     public void start() {
-        //TODO wachtwoord check komt wel later tho
+        //TODO wachtwoord check verbeteren
         boolean ingelogd = false;
         while(!ingelogd) {
             System.out.println("voer wachtwoord in...");
@@ -46,7 +46,7 @@ public class Processor {
                     "'kleding beheren', 'categorieen beheren', 'kledingkast bekijken', 'categorieen zien', 'budget zien' of 'stoppen'");
             switch (scanner.nextLine()) {
                 case "kleding beheren" -> {
-                    //while loop wordt gebruikt zodat het niet terug gaat naar de eerste optie op een foutief antwoord
+                    //extra while loop wordt gebruikt zodat het niet terug gaat naar de eerste optie op een foutief antwoord
                     boolean kledingbeheren = true;
                     while (kledingbeheren) {
                         System.out.println("Kleding 'verwijderen', 'toevoegen' of 'teruggaan'?");
