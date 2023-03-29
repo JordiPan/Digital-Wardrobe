@@ -32,7 +32,7 @@ public class Processor {
             System.out.println("Wat wilt u doen? " +
                     "'kleding beheren', 'categorieen beheren', 'kledingkast bekijken', 'categorieen zien', 'budget zien' of 'stoppen'");
             switch (scanner.nextLine()) {
-                case "kleding beheren":
+                case "kleding beheren" -> {
                     //while loop wordt gebruikt zodat het niet terug gaat naar de eerste optie op een foutief antwoord
                     boolean kledingbeheren = true;
                     while (kledingbeheren) {
@@ -41,176 +41,189 @@ public class Processor {
 
                         switch (antwoord) {
                             case "verwijderen" -> {
-                                boolean categorieGevonden = false;
-                                System.out.println("Uit welke categorie is het?");
-                                String gekregenCategorie = scanner.nextLine();
-                                for (Categorie categorie : kledingkast.getCategorieen()) {
-                                    if (categorie.getNaam().equals(gekregenCategorie)) {
-                                        categorieGevonden = true;
-                                        System.out.println("Wat is het naam van het kledingstuk?");
-                                        String gekregenKledingNaam = scanner.nextLine();
-                                        if (categorie.verwijderKledingstuk(gekregenKledingNaam)) {
-                                            System.out.println("Het was succesvol!!!");
-                                            kledingbeheren = false;
-                                        } else {
-                                            System.out.println("We konden niets vinden....");
-                                            break;
-                                        }
-                                    }
-
-                                }
-                                if (!categorieGevonden) {
-                                    System.out.println("Categorie bestaat niet... Heeft u het goed gespeld? Kijk uit voor hoofdletters!!");
-                                }
+                                kledingVerwijderen();
                             }
                             case "toevoegen" -> {
-                                boolean gevonden = false;
-                                Date datum;
-                                System.out.println("Bij welke categorie hoort het? (Torso, Hoofd, etc)");
-                                String gekozenCategorie = scanner.nextLine();
-                                for (Categorie categorie : kledingkast.getCategorieen()) {
-                                    if (categorie.getNaam().equals(gekozenCategorie)) {
-                                        gevonden = true;
-                                        System.out.println("Is het een 'kledingstuk', 'oorbel' of 'bril'?");
-                                        String gekozenSoort = scanner.nextLine();
+                                kledingToevoegen();
 
-                                        System.out.println("Wat is het naam van het kledingstuk?");
-                                        String naam = scanner.nextLine();
-
-                                        System.out.println("Kunt u een beschrijving geven van het kledingstuk?");
-                                        String beschrijving = scanner.nextLine();
-
-                                        System.out.println("Wat is het prijs? Formaat: 'XX,XX'");
-                                        double prijs = scanner.nextDouble();
-                                        scanner.nextLine();
-
-                                        try {
-                                            System.out.println("Wanneer had u het gekocht/gekregen? Formaat: 'dd/mm/yyyy'");
-                                            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                                            String stringDatum = scanner.nextLine();
-                                            datum = formatter.parse(stringDatum);
-                                        } catch (ParseException e) {
-                                            e.printStackTrace();
-                                            break;
-                                        }
-
-                                        switch (gekozenSoort) {
-                                            case "kledingstuk" -> {
-                                                Kledingstuk stuk = categorie.maakKledingstukAan(naam, beschrijving, prijs, datum);
-                                                //TODO misschien voegkledingtoe methode maken? ik ben vergeten wat dit betekent
-                                                categorie.voegKledingToeInCategorie(stuk);
-                                                System.out.println("Het is hopelijk gedaan...");
-                                                //TODO budget updaten via methode misschien, zodat oorbel en bril methode kan hergebruiken?
-                                                kledingbeheren = false;
-                                            }
-                                            case "oorbel" -> {
-                                                System.out.println("Wat voor vorm heeft het? (rond, ovaal, diamant, etc)");
-                                                String vorm = scanner.nextLine();
-                                                System.out.println("Wat is het materiaal van de oorbellen?");
-                                                String materiaal = scanner.nextLine();
-                                                System.out.println("Karaat? Als het geen karaat heeft dan kan het 0 zijn");
-                                                double karaat = scanner.nextDouble();
-                                                scanner.nextLine();
-                                                System.out.println("Het is hopelijk gedaan...");
-                                                Oorbel oorbel = categorie.maakOorbelAan(naam, beschrijving, prijs, datum, vorm, materiaal, karaat);
-                                                categorie.voegKledingToeInCategorie(oorbel);
-                                            }
-                                            case "bril" -> {
-                                                System.out.println("Is het getint/een zonnebril? true/false");
-                                                boolean isGetint = scanner.nextBoolean();
-                                                scanner.nextLine();
-                                                System.out.println("Wie is de maker van de bril?");
-                                                String maker = scanner.nextLine();
-                                                System.out.println("Wat is de sterkte van de bril? Doe 0 als het geen sterkte heeft");
-                                                double sterkte = scanner.nextDouble();
-                                                scanner.nextLine();
-                                                System.out.println("Het is hopelijk gedaan...");
-                                                Bril bril = categorie.maakBrilAan(naam, beschrijving, prijs, datum, isGetint, sterkte, maker);
-                                                categorie.voegKledingToeInCategorie(bril);
-                                            }
-                                            default ->
-                                                    System.out.println("Er is iets fouts geschreven, probeer opnieuw...");
-                                        }
-//                                        break;
-                                    }
-                                }
-                                if (!gevonden) {
-                                    System.out.println("Categorie bestaat niet... Heeft u het goed gespeld? Kijk uit voor hoofdletters!!");
-                                }
                             }
                             case "teruggaan" -> kledingbeheren = false;
-                            default -> System.out.println("wat?");
+                            default -> System.out.println("Geen optie geselecteerd");
                         }
                     }
-                    break;
-                case "categorieen beheren":
+                }
+                case "categorieen beheren" -> {
                     boolean categorieenBeheren = true;
                     while (categorieenBeheren) {
                         System.out.println("Categorie 'verwijderen' of 'toevoegen'? Of wilt u 'teruggaan'?");
                         String antwoord = scanner.nextLine();
 
                         switch (antwoord) {
-                            case "verwijderen" ->  {
-                                System.out.println("Wat is de naam van de categorie?");
-                                String gekregenCategorie = scanner.nextLine();
-                                if (kledingkast.verwijderCategorie(gekregenCategorie)) {
-                                    System.out.println("De categorie is verwijdert");
-                                }
-                                else {
-                                    System.out.println("Er is iets misgegaan...");
-                                }
+                            case "verwijderen" -> {
+                                categorieVerwijderen();
                             }
                             case "toevoegen" -> {
-                                System.out.println("Wat zal de naam worden?");
-                                String categorieNaam = scanner.nextLine();
-                                kledingkast.voegToe(categorieNaam);
-                                System.out.println("Het is gedaan volgens mij...");
+                                categorieToevoegen();
                             }
                             case "teruggaan" -> categorieenBeheren = false;
                             default -> System.out.println("Spellingsfout?");
                         }
                     }
-                    break;
-                case "kledingkast bekijken":
-                    for (Categorie categorie:
-                            kledingkast.getCategorieen()) {
-                        System.out.println("Categorie: " + categorie.getNaam());
-                        System.out.println();
-                        if (categorie.getKleding().isEmpty()) {
-                            System.out.println("Geen kledingstukken in dit categorie te vinden...");
-                            System.out.println();
-                        }
-                        else {
-                            for (Kledingstuk kledingstuk:
-                                    categorie.getKleding()) {
-                                Format formatter = new SimpleDateFormat("dd/MM/yyyy");
-                                System.out.println("Naam: " + kledingstuk.getNaam());
-                                System.out.println("Details: " + kledingstuk.getDetails());
-                                System.out.println("Prijs: " + kledingstuk.getPrijs());
-                                System.out.println("Datum: " + formatter.format(kledingstuk.getDatum()));
-                                System.out.println();
-                            }
-                        }
-                    }
-                    break;
-                case "categorieen zien":
-                    for (Categorie categorie:
-                            kledingkast.getCategorieen()) {
-                        System.out.println(categorie.getNaam());
-                    }
-
-                    break;
-                case "budget zien":
-                    System.out.println("Uw budget: " + gebruiker.getBudget());
-                    break;
-                case "stoppen":
+                }
+                case "kledingkast bekijken" -> printKledingkast();
+                case "categorieen zien" -> printCategorieen();
+                case "budget zien" -> printBudget();
+                case "stoppen" -> {
                     stoppen = true;
                     System.out.println("Tot de volgende keer!");
-                    break;
-                default:
-                    System.out.println("Dat is geen optie :c");
+                }
+                default -> System.out.println("Dat is geen optie :c");
             }
         }
+    }
+    public void kledingToevoegen() {
+        boolean gevonden = false;
+        Date datum;
+        System.out.println("Bij welke categorie hoort het? (Torso, Hoofd, etc)");
+        String gekozenCategorie = scanner.nextLine();
+        for (Categorie categorie : kledingkast.getCategorieen()) {
+            if (categorie.getNaam().equals(gekozenCategorie)) {
+                gevonden = true;
+                System.out.println("Is het een 'kledingstuk', 'oorbel' of 'bril'?");
+                String gekozenSoort = scanner.nextLine();
 
+                System.out.println("Wat is het naam?");
+                String naam = scanner.nextLine();
+
+                System.out.println("Kunt u een beschrijving geven?");
+                String beschrijving = scanner.nextLine();
+
+                System.out.println("Wat is het prijs? Formaat: 'XX,XX'");
+                double prijs = scanner.nextDouble();
+                scanner.nextLine();
+
+                try {
+                    System.out.println("Wanneer had u het gekocht/gekregen? Formaat: 'dd/mm/yyyy'");
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                    String stringDatum = scanner.nextLine();
+                    datum = formatter.parse(stringDatum);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    break;
+                }
+
+                switch (gekozenSoort) {
+                    case "kledingstuk" -> {
+                        Kledingstuk stuk = categorie.maakKledingstukAan(naam, beschrijving, prijs, datum);
+                        categorie.voegKledingToeInCategorie(stuk);
+                        System.out.println("Het is hopelijk gedaan...");
+                        //TODO budget updaten via methode, zodat oorbel en bril methode kan hergebruiken (gebeurt later wel)
+                    }
+                    case "oorbel" -> {
+                        System.out.println("Wat voor vorm heeft het? (rond, ovaal, diamant, etc)");
+                        String vorm = scanner.nextLine();
+                        System.out.println("Wat is het materiaal van de oorbellen?");
+                        String materiaal = scanner.nextLine();
+                        System.out.println("Karaat? Als het geen karaat heeft dan kan het 0 zijn");
+                        double karaat = scanner.nextDouble();
+                        scanner.nextLine();
+                        System.out.println("Het is hopelijk gedaan...");
+                        Oorbel oorbel = categorie.maakOorbelAan(naam, beschrijving, prijs, datum, vorm, materiaal, karaat);
+                        categorie.voegKledingToeInCategorie(oorbel);
+                    }
+                    case "bril" -> {
+                        System.out.println("Is het getint/een zonnebril? true/false");
+                        boolean isGetint = scanner.nextBoolean();
+                        scanner.nextLine();
+                        System.out.println("Wie is de maker van de bril?");
+                        String maker = scanner.nextLine();
+                        System.out.println("Wat is de sterkte van de bril? Doe 0 als het geen sterkte heeft");
+                        double sterkte = scanner.nextDouble();
+                        scanner.nextLine();
+                        System.out.println("Het is hopelijk gedaan...");
+                        Bril bril = categorie.maakBrilAan(naam, beschrijving, prijs, datum, isGetint, sterkte, maker);
+                        categorie.voegKledingToeInCategorie(bril);
+                    }
+                    default ->
+                            System.out.println("Er is iets fouts geschreven, probeer opnieuw...");
+                }
+//                                        break;
+            }
+        }
+        if (!gevonden) {
+            System.out.println("Categorie bestaat niet... Heeft u het goed gespeld? Kijk uit voor hoofdletters!!");
+        }
+    }
+
+    public void kledingVerwijderen() {
+        boolean categorieGevonden = false;
+        System.out.println("Uit welke categorie is het?");
+        String gekregenCategorie = scanner.nextLine();
+        for (Categorie categorie : kledingkast.getCategorieen()) {
+            if (categorie.getNaam().equals(gekregenCategorie)) {
+                categorieGevonden = true;
+                System.out.println("Wat is het naam van het kledingstuk?");
+                String gekregenKledingNaam = scanner.nextLine();
+                if (categorie.verwijderKledingstuk(gekregenKledingNaam)) {
+                    System.out.println("Het was succesvol!!!");
+                } else {
+                    System.out.println("We konden niets vinden....");
+                    break;
+                }
+            }
+        }
+        if (!categorieGevonden) {
+            System.out.println("Categorie bestaat niet... Heeft u het goed gespeld? Kijk uit voor hoofdletters!!");
+        }
+    }
+
+    public void categorieToevoegen() {
+        System.out.println("Wat zal de naam worden?");
+        String categorieNaam = scanner.nextLine();
+        kledingkast.voegToe(categorieNaam);
+        System.out.println("Het is gedaan volgens mij...");
+    }
+
+    public void categorieVerwijderen() {
+        System.out.println("Wat is de naam van de categorie?");
+        String gekregenCategorie = scanner.nextLine();
+        if (kledingkast.verwijderCategorie(gekregenCategorie)) {
+            System.out.println("De categorie is verwijdert");
+        }
+        else {
+            System.out.println("Er is iets misgegaan...");
+        }
+    }
+    public void printKledingkast() {
+        for (Categorie categorie:
+                kledingkast.getCategorieen()) {
+            System.out.println("Categorie: " + categorie.getNaam());
+            System.out.println();
+            if (categorie.getKleding().isEmpty()) {
+                System.out.println("Geen kledingstukken in dit categorie te vinden...");
+                System.out.println();
+            } else {
+                for (Kledingstuk kledingstuk :
+                        categorie.getKleding()) {
+                    Format formatter = new SimpleDateFormat("dd/MM/yyyy");
+                    System.out.println("Naam: " + kledingstuk.getNaam());
+                    System.out.println("Details: " + kledingstuk.getDetails());
+                    System.out.printf("Prijs: %.2f %n", kledingstuk.getPrijs());
+                    System.out.println("Datum: " + formatter.format(kledingstuk.getDatum()));
+                    System.out.println();
+                }
+            }
+        }
+    }
+
+    public void printCategorieen() {
+        for (Categorie categorie:
+                kledingkast.getCategorieen()) {
+            System.out.println(categorie.getNaam());
+        }
+    }
+
+    public void printBudget() {
+        System.out.println("Uw budget: " + gebruiker.getBudget());
     }
 }
