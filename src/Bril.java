@@ -10,10 +10,10 @@ public class Bril extends Kledingstuk{
         this.sterkte = sterkte;
         this.maker = maker;
     }
-    @Override
-    public String getNaam() {
-        return super.getNaam();
-    }
+//    @Override
+//    public String getNaam() {
+//        return super.getNaam();
+//    }
 
     @Override
     public String getDetails() {
