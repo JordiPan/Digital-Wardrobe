@@ -5,12 +5,12 @@ public class Categorie {
     private String naam;
     private ArrayList<Kledingstuk> kleding = new ArrayList<>();
 
-    public ArrayList<Kledingstuk> getKleding() {
-        return kleding;
-    }
-
     public Categorie(String naam) {
         this.naam = naam;
+    }
+
+    public ArrayList<Kledingstuk> getKleding() {
+        return kleding;
     }
 
     public String getNaam() {

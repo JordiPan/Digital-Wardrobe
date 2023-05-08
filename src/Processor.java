@@ -220,6 +220,7 @@ public class Processor {
                         categorie.getKleding()) {
                     Format formatter = new SimpleDateFormat("dd/MM/yyyy");
                     System.out.println("Naam: " + kledingstuk.getNaam());
+                    //raar genoeg werkt de method overriding hier ook al hoort het niet meer te weten welke subklasse het is... ik kan nog altijd een id variabel toevoegen en if statements als dit niet goed is
                     System.out.println("Details: " + kledingstuk.getDetails());
                     System.out.printf("Prijs: %.2f %n", kledingstuk.getPrijs());
                     System.out.println("Datum: " + formatter.format(kledingstuk.getDatum()));
