@@ -127,12 +127,16 @@ public class Processor {
 
                 switch (gekozenSoort) {
                     case "kledingstuk" -> {
-                        Kledingstuk stuk = categorie.maakKledingstukAan(naam, beschrijving, prijs, datum);
+                        System.out.println("Wat is het maat van het kledingstuk? (alleen cijfers)");
+                        int maat = scanner.nextInt();
+                        scanner.nextLine();
+
+                        Kledingstuk stuk = categorie.maakKledingstukAan(naam, beschrijving, prijs, datum, maat);
                         categorie.voegKledingToeInCategorie(stuk);
-                        System.out.println("Het is hopelijk gedaan...");
+                        System.out.println("Kledingstuk is aangemaakt!");
                         //TODO budget updaten via methode, zodat oorbel en bril methode kan hergebruiken (gebeurt later wel)
                     }
-                    case "oorbel" -> {
+                    case "oorebl" -> {
                         System.out.println("Wat voor vorm heeft het? (rond, ovaal, diamant, etc)");
                         String vorm = scanner.nextLine();
                         System.out.println("Wat is het materiaal van de oorbellen?");
@@ -140,9 +144,10 @@ public class Processor {
                         System.out.println("Karaat? Als het geen karaat heeft dan kan het 0 zijn");
                         double karaat = scanner.nextDouble();
                         scanner.nextLine();
-                        System.out.println("Het is hopelijk gedaan...");
+
                         Oorbel oorbel = categorie.maakOorbelAan(naam, beschrijving, prijs, datum, vorm, materiaal, karaat);
                         categorie.voegKledingToeInCategorie(oorbel);
+                        System.out.println("Oorbel is aangemaakt!");
                     }
                     case "bril" -> {
                         System.out.println("Is het getint/een zonnebril? true/false");
@@ -153,9 +158,10 @@ public class Processor {
                         System.out.println("Wat is de sterkte van de bril? Doe 0 als het geen sterkte heeft");
                         double sterkte = scanner.nextDouble();
                         scanner.nextLine();
-                        System.out.println("Het is hopelijk gedaan...");
+
                         Bril bril = categorie.maakBrilAan(naam, beschrijving, prijs, datum, isGetint, sterkte, maker);
                         categorie.voegKledingToeInCategorie(bril);
+                        System.out.println("Bril is aangemaakt!");
                     }
                     default ->
                             System.out.println("Er is iets fouts geschreven, probeer opnieuw...");
@@ -177,7 +183,7 @@ public class Processor {
                 categorieGevonden = true;
                 System.out.println("Wat is het naam van het kledingstuk?");
                 String gekregenKledingNaam = scanner.nextLine();
-                if (categorie.verwijderKledingstuk(gekregenKledingNaam)) {
+                if (categorie.verwijderDraagbaarProduct(gekregenKledingNaam)) {
                     System.out.println("Het was succesvol!!!");
                 } else {
                     System.out.println("We konden niets vinden....");
@@ -212,18 +218,18 @@ public class Processor {
                 kledingkast.getCategorieen()) {
             System.out.println("Categorie: " + categorie.getNaam());
             System.out.println();
-            if (categorie.getKleding().isEmpty()) {
+            if (categorie.getDraagbareProducten().isEmpty()) {
                 System.out.println("Geen kledingstukken in dit categorie te vinden...");
                 System.out.println();
             } else {
-                for (Kledingstuk kledingstuk :
-                        categorie.getKleding()) {
+                for (DraagbaarProduct draagbaarProduct :
+                        categorie.getDraagbareProducten()) {
                     Format formatter = new SimpleDateFormat("dd/MM/yyyy");
-                    System.out.println("Naam: " + kledingstuk.getNaam());
+                    System.out.println("Naam: " + draagbaarProduct.naam);
                     //raar genoeg werkt de method overriding hier ook al hoort het niet meer te weten welke subklasse het is... ik kan nog altijd een id variabel toevoegen en if statements als dit niet goed is
-                    System.out.println("Details: " + kledingstuk.getDetails());
-                    System.out.printf("Prijs: %.2f %n", kledingstuk.getPrijs());
-                    System.out.println("Datum: " + formatter.format(kledingstuk.getDatum()));
+                    System.out.println("Details: " + draagbaarProduct.getDetails());
+                    System.out.printf("Prijs: %.2f %n", draagbaarProduct.prijs);
+                    System.out.println("Datum: " + formatter.format(draagbaarProduct.datum));
                     System.out.println();
                 }
             }

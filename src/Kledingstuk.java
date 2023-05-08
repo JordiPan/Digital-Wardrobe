@@ -1,32 +1,27 @@
 import java.util.Date;
 
-public class Kledingstuk {
-    private String naam;
-    private String beschrijving;
-    private double prijs;
-    private Date datum;
+public class Kledingstuk extends DraagbaarProduct{
+    private int maat;
 
-    public Kledingstuk(String naam, String beschrijving, double prijs, Date datum) {
-        this.naam = naam;
-        this.beschrijving = beschrijving;
-        this.prijs = prijs;
-        this.datum = datum;
+    public Kledingstuk(String naam, String beschrijving, double prijs, Date datum, int maat) {
+        super(naam, beschrijving, prijs, datum);
+        this.maat = maat;
     }
 
 
-    public String getNaam() {
-        return naam;
-    }
+//    public String getNaam() {
+//        return naam;
+//    }
 
     public String getDetails() {
-        return beschrijving;
+        return beschrijving + " Het heeft ook een maat van: " + maat;
     }
-
-    public double getPrijs() {
-        return prijs;
-    }
-
-    public Date getDatum() {
-        return datum;
-    }
+//
+//    public double getPrijs() {
+//        return prijs;
+//    }
+//
+//    public Date getDatum() {
+//        return datum;
+//    }
 }

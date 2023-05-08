@@ -1,6 +1,6 @@
 import java.util.Date;
 
-public class Bril extends Kledingstuk{
+public class Bril extends DraagbaarProduct{
     private boolean isGetint;
     private double sterkte;
     private String maker;
@@ -18,6 +18,6 @@ public class Bril extends Kledingstuk{
 
     @Override
     public String getDetails() {
-        return super.getDetails() + " Ook is de bril " + ((isGetint) ? "getint" : "niet getint") + " met een sterkte van " + sterkte + " en het is gemaakt door: " + maker;
+        return beschrijving + " Ook is de bril " + ((isGetint) ? "getint" : "niet getint") + " met een sterkte van " + sterkte + " en het is gemaakt door: " + maker;
     }
 }

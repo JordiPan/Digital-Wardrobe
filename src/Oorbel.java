@@ -1,6 +1,6 @@
 import java.util.Date;
 
-public class Oorbel extends Kledingstuk{
+public class Oorbel extends DraagbaarProduct{
     private String vorm;
     private String materiaal;
     private double karaat;
@@ -28,6 +28,6 @@ public class Oorbel extends Kledingstuk{
 
     @Override
     public String getDetails() {
-        return super.getDetails() + " Daarnaast zijn de oorbellen van " + materiaal + " gemaakt en zijn " + ((karaat == 0) ? "oorbellen zonder karaat" : karaat + " karaat");
+        return beschrijving + " Daarnaast zijn de oorbellen van " + materiaal + " gemaakt en zijn " + ((karaat == 0) ? "oorbellen zonder karaat" : karaat + " karaat");
     }
 }
